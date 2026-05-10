@@ -1,0 +1,70 @@
+// Beispiel-Daten für besuchte Standorte und Fotos
+const visitedLocations = [
+    {
+        name: "Paris, Frankreich",
+        position: { lat: 48.8566, lng: 2.3522 },
+        photos: ["paris1.jpg", "paris2.jpg", "paris3.jpg"],
+    },
+    {
+        name: "New York, USA",
+        position: { lat: 40.7128, lng: -74.006 },
+        photos: ["nyc1.jpg", "nyc2.jpg"],
+    },
+    {
+        name: "Tokyo, Japan",
+        position: { lat: 35.6895, lng: 139.6917 },
+        photos: ["tokyo1.jpg"],
+    },
+];
+
+let map;
+
+// Initialisiere Google Map
+function initMap() {
+    map = new google.maps.Map(document.getElementById("map"), {
+        zoom: 2,
+        center: { lat: 0, lng: 0 },
+    });
+
+    loadLocations();
+}
+
+function loadLocations() {
+    visitedLocations.forEach((location) => {
+        const marker = new google.maps.Marker({
+            position: location.position,
+            map,
+            title: location.name,
+        });
+
+        marker.addListener("click", () => openAlbum(location));
+    });
+}
+
+function openAlbum(location) {
+    const album = document.getElementById("album");
+    const photoContainer = document.getElementById("photo-container");
+
+    // Standortname setzen
+    document.getElementById("location-name").textContent = location.name;
+
+    // Album öffnen
+    album.classList.add("active");
+
+    // Album mit Fotos füllen
+    photoContainer.innerHTML = ""; // Vorherige Fotos entfernen
+    location.photos.forEach((photo) => {
+        const img = document.createElement("img");
+        img.src = photo; // Anpassen: Absoluter Pfad oder Hosting-Bilder
+        img.alt = `Foto von ${location.name}`;
+        photoContainer.appendChild(img);
+    });
+}
+
+// Klick außerhalb des Albums schließt es
+document.getElementById("album").addEventListener("click", () => {
+    document.getElementById("album").classList.remove("active");
+});
+
+// Karte laden, wenn die Seite vollständig geladen ist
+window.onload = initMap;
