@@ -3,10 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Epanosyan Reisen</title>
+    <title>Reise-Globus</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://maps.googleapis.com/maps/api/js?key=API_KEY&libraries=places"></script>
 </head>
 <body>
-    <h1>Willkommen auf meiner Reise-Website!</h1>
-    <p>Hier findest du interaktive Karten und Fotos von meinen besuchten Orten.</p>
+    <header>
+        <h1>Meine Reisen</h1>
+    </header>
+
+    <main>
+        <div id="map"></div>
+        <div id="album">
+            <div class="album-header">
+                <h2>Fotos von <span id="location-name"></span></h2>
+            </div>
+            <div class="album-photos" id="photo-container">
+                <!-- Fotos werden dynamisch hier eingefügt -->
+            </div>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
 </body>
 </html>
